@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Secure Uploads{% endblock %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="mb-3">Secure File Upload</h3>
+                <ul class="text-muted small">
+                    <li>Allowed types: PNG, JPG, JPEG, PDF</li>
+                    <li>Maximum size: 2 MB</li>
+                    <li>File names are sanitized and replaced with UUID names</li>
+                </ul>
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.file.label(class="form-label") }}
+                        {{ form.file(class="form-control") }}
+                        {% for error in form.file.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="d-grid">{{ form.submit(class="btn btn-primary") }}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="mb-3">Uploaded Files</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-dark"><tr><th>ID</th><th>Original Name</th><th>Type</th><th>Size</th><th>Download</th></tr></thead>
+                        <tbody>
+                            {% for item in uploads %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.original_filename }}</td>
+                                <td>{{ item.mime_type }}</td>
+                                <td>{{ item.size_bytes }} bytes</td>
+                                <td><a class="btn btn-sm btn-outline-primary" href="{{ url_for('uploaded_file', filename=item.stored_filename) }}">Download</a></td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="5" class="text-center">No uploads yet.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

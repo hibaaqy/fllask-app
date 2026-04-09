@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Update Student{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="mb-3">Update Student Record</h3>
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">{{ form.fname.label(class="form-label") }}{{ form.fname(class="form-control") }}{% for error in form.fname.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</div>
+                    <div class="mb-3">{{ form.lname.label(class="form-label") }}{{ form.lname(class="form-control") }}{% for error in form.lname.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</div>
+                    <div class="mb-3">{{ form.email.label(class="form-label") }}{{ form.email(class="form-control") }}{% for error in form.email.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</div>
+                    <div class="mb-3">{{ form.city.label(class="form-label") }}{{ form.city(class="form-control") }}{% for error in form.city.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</div>
+                    <div class="mb-3">{{ form.age.label(class="form-label") }}{{ form.age(class="form-control") }}{% for error in form.age.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}</div>
+                    <div class="d-flex gap-2">
+                        {{ form.submit(class="btn btn-success") }}
+                        <a href="{{ url_for('home') }}" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
