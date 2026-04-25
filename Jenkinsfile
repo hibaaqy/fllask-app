@@ -1,5 +1,10 @@
 pipeline {
     agent any
+        tools {
+        maven 'Maven'
+
+        }
+            
     environment {
         //variables defined here can be used by any stage
         NEW_VERSION = '1.3.0'
@@ -13,6 +18,7 @@ pipeline {
                 //using environment variables 
                 //to output the value of variable in string use ""
                 echo "Building version ${NEW_VERSION}"
+                sh "nvm install"
             }
         }
 
